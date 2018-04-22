@@ -59,7 +59,6 @@ router.route('/snapshots').get(function(req, res) {
   if (isValid(name)) {
 		let found = store.get('ZFS_SNAPSOTS').filter(snap => snap.split('@')[0] == filesystem)
 		res.json(found)
-    })
   } else {
     res.json(store.get('ZFS_SNAPSHOTS'))
   }
