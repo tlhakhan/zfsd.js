@@ -7,7 +7,7 @@ let cp = require('child_process');
 let service = cp.fork(path.join(__dirname, './service'));
 
 service.on('message', function(msg) {
-  console.log(`setting cache for ${msg.type}`)
+  console.log(`Setting cache for ${msg.type}`)
   cache.set(msg.type, msg.data);
 });
 
