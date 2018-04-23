@@ -11,6 +11,9 @@ git clone git clone https://github.com/tlhakhan/zfsd.js
 cd zfsd.js
 npm install
 npm start
+
+# server will listen on port 8080
+# example:  http://localhost:8080/zfs/list
 ```
 
 ## Use Case
