@@ -58,3 +58,4 @@ received 1.04GB stream in 8 seconds (133MB/sec)
   - takes a switched query paramter `incremental`, values can be only `true` or `false`.
   - when `true`, additional query parameters `startSnapshot` and `endSnapshot` must be given.
   - when `false`, additional query parameter `initialSnapshot` must be given.
+  - when ^C or client is gone, the zfs send process is killed using SIGTERM.
