@@ -1,20 +1,17 @@
 'use strict';
 
-let router = require('express').Router();
-let store = require('./store');
+let router = require('express').Router()
+let store = require('./store')
 
-let {
-  spawn
-} = require('child_process')
-
+let { spawn } = require('child_process')
 
 router.route('/send').get((req, res) => {
   let { incremental } = req.query
-  let isValid = (name) => store.get('ZFS_SNAPSHOTS').some((snap) => snap == name);
+  let isValid = (name) => store.get('ZFS_SNAPSHOTS').some(snap => snap == name)
 
   switch (incremental) {
     case "true":
-      let { startSnapshot, endSnapshot } = req.query;
+      let { startSnapshot, endSnapshot } = req.query
       if (isValid(startSnapshot) && isValid(endSnapshot)) {
         let send = spawn('/usr/sbin/zfs', ['send', '-I', startSnapshot, endSnapshot])
         send.stdout.pipe(res)
@@ -22,7 +19,7 @@ router.route('/send').get((req, res) => {
       } else {
         res.end()
       }
-      break;
+      break
     case "false":
       let { initialSnapshot } = req.query;
       if (isValid(initialSnapshot)) {
@@ -36,12 +33,12 @@ router.route('/send').get((req, res) => {
   }
 })
 
-router.route('/list').get(function(req, res) {
-  res.json(store.get('ZFS_LIST'));
+router.route('/list').get((req, res) => {
+  res.json(store.get('ZFS_LIST'))
 });
 
-router.route('/dataset').get(function(req, res) {
-  let { name } = req.query;
+router.route('/dataset').get((req, res) => {
+  let { name } = req.query
   if (store.get('ZFS_DATASETS')[name]) {
     res.json(store.get('ZFS_DATASETS')[name])
   } else {
@@ -49,12 +46,12 @@ router.route('/dataset').get(function(req, res) {
   }
 });
 
-router.route('/datasets').get(function(req, res) {
-  res.json(store.get('ZFS_DATASETS'));
+router.route('/datasets').get((req, res) => {
+  res.json(store.get('ZFS_DATASETS'))
 });
 
 router.route('/snapshots').get(function(req, res) {
-  let { filesystem } = req.query;
+  let { filesystem } = req.query
   let isValid = (name) => store.get('ZFS_FILESYSTEMS').some(fs => fs == name)
   if (isValid(filesystem)) {
 		let found = store.get('ZFS_SNAPSOTS').filter(snap => snap.split('@')[0] == filesystem)
@@ -64,16 +61,16 @@ router.route('/snapshots').get(function(req, res) {
   }
 });
 
-router.route('/filesystems').get(function(req, res) {
-  res.json(store.get('ZFS_FILESYSTEMS'));
+router.route('/filesystems').get((req, res) => {
+  res.json(store.get('ZFS_FILESYSTEMS'))
 });
 
-router.route('/volumes').get(function(req, res) {
-  res.json(store.get('ZFS_VOLUMES'));
+router.route('/volumes').get((req, res) => {
+  res.json(store.get('ZFS_VOLUMES'))
 });
 
-router.route('/clones').get(function(req, res) {
+router.route('/clones').get((req, res) => {
   res.json(store.get('ZFS_CLONES'))
 });
 
-module.exports = router;
+module.exports = router
