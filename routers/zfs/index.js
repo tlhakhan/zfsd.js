@@ -10,7 +10,7 @@ let {
 
 router.route('/send').get((req, res) => {
   let { incremental } = req.query
-	let isValid = (name) => store.get('ZFS_SNAPSHOTS').some((snap) => snap == name);
+  let isValid = (name) => store.get('ZFS_SNAPSHOTS').some((snap) => snap == name);
 
   switch (incremental) {
     case "true":
@@ -55,8 +55,8 @@ router.route('/datasets').get(function(req, res) {
 
 router.route('/snapshots').get(function(req, res) {
   let { filesystem } = req.query;
-	let isValid = (name) => store.get('ZFS_FILESYSTEMS').some(fs => fs == name)
-  if (isValid(name)) {
+  let isValid = (name) => store.get('ZFS_FILESYSTEMS').some(fs => fs == name)
+  if (isValid(filesystem)) {
 		let found = store.get('ZFS_SNAPSOTS').filter(snap => snap.split('@')[0] == filesystem)
 		res.json(found)
   } else {
