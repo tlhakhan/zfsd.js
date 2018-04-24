@@ -12,7 +12,7 @@ let zfsD = new ExecDaemon({
   interval: 5
 });
 
-zfsD.on('done', function(output) {
+zfsD.on('done', (output) => {
   let datasets = zfsOutputParser(output)
 
   process.send({
@@ -27,33 +27,23 @@ zfsD.on('done', function(output) {
 
   process.send({
     type: 'ZFS_FILESYSTEMS',
-    data: _.values(datasets).filter(function(ds) {
-      return (ds.type === 'filesystem')
-    }).map((ds) => ds.name)
+    data: _.values(datasets).filter(ds => ds.type === 'filesystem').map((ds) => ds.name)
   })
 
   process.send({
     type: 'ZFS_VOLUMES',
-    data: _.values(datasets).filter(function(ds) {
-      return (ds.type === 'volume')
-    }).map((ds) => ds.name)
+    data: _.values(datasets).filter(ds => ds.type === 'volume').map((ds) => ds.name)
   })
 
   process.send({
     type: 'ZFS_SNAPSHOTS',
-    data: _.values(datasets).filter(function(ds) {
-      return (ds.type === 'snapshot')
-    }).map((ds) => ds.name)
+    data: _.values(datasets).filter(ds => ds.type === 'snapshot').map((ds) => ds.name)
   })
 
   process.send({
     type: 'ZFS_CLONES',
-    data: _.values(datasets).filter(function(ds) {
-      return (ds.origin !== '' && (ds.type === 'filesystem' || ds.type === 'volume'))
-    }).map((ds) => ds.name)
+    data: _.values(datasets).filter(ds => ds.origin !== '' && (ds.type === 'filesystem' || ds.type === 'volume')).map((ds) => ds.name)
   })
 });
 
-zfsD.on('error', function(err) {
-  console.log(err);
-});
+zfsD.on('error', err => console.log(err));
