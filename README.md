@@ -1,21 +1,6 @@
 # zfsd.js
 zfs api in nodejs.
 
-## Running server
-- Clone git repo.
-- Install npm dependencies.
-- Start server.
-
-```bash
-git clone git clone https://github.com/tlhakhan/zfsd.js
-cd zfsd.js
-npm install
-npm start
-
-# server will listen on port 8080
-# example:  http://localhost:8080/zfs/list
-```
-
 ## Use case
 - Receive a zfs dataset over http.
 
@@ -42,6 +27,21 @@ received 1.04GB stream in 8 seconds (133MB/sec)
     aggr0  292.41K  439.93M  103.77K    6.85M  
     aggr0  290.73K  437.39M  103.14K    6.81M  
     aggr0  326.92K  491.81M  104.80K    6.92M  
+```
+
+## Running server
+- Clone git repo.
+- Install npm dependencies.
+- Start server.
+
+```bash
+git clone git clone https://github.com/tlhakhan/zfsd.js
+cd zfsd.js
+npm install
+npm start
+
+# server will listen on port 8080
+# example:  http://localhost:8080/zfs/list
 ```
 
 ## API
